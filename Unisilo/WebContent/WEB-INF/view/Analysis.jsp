@@ -15,7 +15,8 @@
 <form method = "POST" action = "Analysis" name = "Analysis" onsubmit="return check();">
 <%
 request.setCharacterEncoding("UTF-8");
-
+//★★モデルでデータベースから取得した一覧の結果をコントローラから引き渡してリストを作成するようにしましょう。
+//★★InsertSaledRecordsを参考にしてください。
 //データベースに接続_
 	Class.forName("com.mysql.cj.jdbc.Driver");
 	Connection myConn = DriverManager.getConnection( "jdbc:mysql://121.142.93.107:20621/unisilodb?characterEncoding=UTF-8&serverTimezone=JST&user=nskensyu2020&password=2020Nskensyu!");
@@ -56,6 +57,7 @@ request.setCharacterEncoding("UTF-8");
 			<tr>
 				<td>顧客性別：</td>
 				<td>
+					<!-- ★★好みの問題でもありますが、ここはチェックボックスの方がよいです。 -->
 					<input type="radio" name="userGender" autocomplete="off" id="gender" value="1"checked><label for="male">男性</label>
                    	<input type="radio" name="userGender" autocomplete="off" id="gender" value="2" checked><label for="female">女性</label>
                    	<input type="radio" name="userGender" autocomplete="off" id="gender" value="2" checked><label for="female">全体</label>
@@ -63,6 +65,7 @@ request.setCharacterEncoding("UTF-8");
 			</tr>
 			<tr>
 				<td>顧客年齢：</td>
+				<!-- ★★全年齢代は不要かと思います。 -->
 				<td><select name="userAge" id="age" style="width:194px">
 				<option value="0" style="display: none;">年齢を選択してください。</option>
 				<option value="1" style="display: none;">全年齢代</option>

@@ -16,10 +16,13 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class InsertItem
  */
+//★★このファイルはコントローラフォルダにあることがふさわしいです。
+//★★また、複数形、単数形を他の機能と統一しましょう。
 @WebServlet("/InsertItem")
 public class InsertItem extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
+	//★★Daoを使ってデータベースにアクセスしましょう。
 	//?以降は文字化け対策
 	String url = "jdbc:mysql://121.142.93.107:20621/unisilodb?characterEncoding=UTF-8&serverTimezone=JST";
 	String user = "nskensyu2020";
@@ -28,6 +31,7 @@ public class InsertItem extends HttpServlet {
     /**
      * @see HttpServlet#HttpServlet()
      */
+	//★★自動でできたものかもしれませんが、不要です。
     public InsertItem() {
         super();
         // TODO Auto-generated constructor stub
@@ -55,6 +59,7 @@ public class InsertItem extends HttpServlet {
 		String price = request.getParameter("price");
 		String cost = request.getParameter("cost");
 
+		//★★保存処理はSalesRecordsBusinessLogic,SalesRecordsDto,SalesRecordsDaoを参考にして作ってみましょう。
 		  // DBへ保存処理
 		Connection con = null;
 		Statement smt = null;

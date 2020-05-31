@@ -15,16 +15,18 @@ import javax.servlet.http.HttpServletResponse;
 
 
 
-
-
+//★★@WebServletのアノテーションをつけましょう
 public class InsertUsers extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+
+	//★★Daoを使ってデータベースにアクセスしましょう。
     //localhost変更に必要あり？データベース名・ユーザー・パスワードも変更必須→すべて完了・成功
 	private String url = "jdbc:mysql://121.142.93.107:20621/unisilodb?characterEncoding=UTF-8&serverTimezone=JST";
 	private String user = "nskensyu2020";
 	private String pw = "2020Nskensyu!";
 
 
+	//★★自動でできたものかもしれませんが、不要です。
     public InsertUsers() {
         super();
 
@@ -43,16 +45,17 @@ public class InsertUsers extends HttpServlet {
 
 		request.setCharacterEncoding("UTF-8");
 
-
+		//★★デバッグ用であれば、不要となったら削除するか、コメントでその旨を残しておきましょう。
 		Enumeration<String> names = request.getParameterNames();
 
 
+		//★★保存処理はSalesRecordsBusinessLogic,SalesRecordsDto,SalesRecordsDaoを参考にして作ってみましょう。
 		String name = request.getParameter("name");
 		String gender = request.getParameter("gender");
 		String age = request.getParameter("age");
 
 		try {
-
+			//★★接続の方法が旧式になっています。
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
 		} catch (InstantiationException e) {
 
@@ -61,7 +64,7 @@ public class InsertUsers extends HttpServlet {
 
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
-
+			//★★catchは、Exceptionをまとめることで見やすくすることができます。InsertItem.javaを参照してみてください。
 			e.printStackTrace();
 		}
 

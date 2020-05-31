@@ -16,10 +16,12 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class Analysis
  */
+//★★このファイルはControllerフォルダにあることがふさわしいです。
 @WebServlet("/Analysis")
 public class Analysis extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
+	//★★Daoを利用してデータベースに接続しましょう。
 	//データベースを指定。?以降は文字化け対策
 	String url = "jdbc:mysql://121.142.93.107:20621/unisilodb?characterEncoding=UTF-8&serverTimezone=JST";
 	String user = "nskensyu2020";
@@ -28,6 +30,7 @@ public class Analysis extends HttpServlet {
     /**
      * @see HttpServlet#HttpServlet()
      */
+	//★★自動でできたメソッドかもしれないですが、不要です。
     public Analysis() {
         super();
         // TODO Auto-generated constructor stub
@@ -43,6 +46,8 @@ public class Analysis extends HttpServlet {
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/Analysis.jsp");
 		dispatcher.forward(request, response);
 
+
+		//★★この下はPOSTで実行されるものだと思います。
 		request.setCharacterEncoding("UTF-8"); 		//受け取ったパラメータの文字化け対策
 
 		//受け取る Ageのところだけ別処理がいる
@@ -99,9 +104,10 @@ public class Analysis extends HttpServlet {
 					"ON sales_records.user_id=users.id " +
 					"WHERE purchased_at BETWEEN " + dateStart + " and " + dateEnd +
 					" and items.name = '" + name + "'" +
-					" and users.gender = " + userGender +
-					" and users.age BETWEEN " + age1 + " and " + age2 +
+					" and users.gender = " + userGender +  //★★条件分岐を使って、userGenderに何も値が入っていなかったり、あるいは全体を表す値が入っている場合は、この条件がSQLに含まれないようにしましょう。
+					" and users.age BETWEEN " + age1 + " and " + age2 + //★★性別と同じく、条件分岐を使ってこの条件がSQLに含まれないパターンを用意しましょう。
 					";";
+			//★★選別、年齢の条件をSQLにつけない = 全性別が対象、全年齢が対象ということです。絞り込まないので。
 			//DBから受け取る
 
 			//まだよくわからない試してる途中ーーHAN
